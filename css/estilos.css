@@ -29,6 +29,14 @@ body {
     text-align: center;
 }
 
+.form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0;
+}
+
 .form__nuevoalimento {
     width: 275px;
     height: 45px;
@@ -36,8 +44,8 @@ body {
     border-radius: 0.3rem;
     font-size: 1.3rem;
     letter-spacing: 0.09rem;
-    padding-left: 1.2rem;
-    margin-right: 5rem;
+    text-align: center;
+    margin: 10px;
 }
 
 .button {
@@ -52,63 +60,78 @@ body {
     color: white
 }
 
-.form__btnaniadir {
+.form__btnaniadir,.form__btncomprar {
     background-color: #50b1c2;
+    margin: 10px;
 }
-
-.form__btncomprar {
-    background-color: #73AAFF;
-}
-
 
 /* LISTA */
 
 .list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     max-width: 450px;
-    margin: 4em auto;
+    margin: 0 auto;
     font-family: opensans;
     font-weight: bold;
     color: rgb(73, 75, 207);
+    padding: 0;
 }
 
 .listitem {
-    border-radius: 0.4rem;
-    margin-bottom: 0.25rem;
     list-style-type: none;
     border: 1px solid rgb(218, 216, 216);
-    padding: 1rem;
-    text-align: left;
     font-size: 1.3rem;
     font-variant: small-caps;
     text-align: center;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    width: 100%;
 }
 
 .listitem__name {
+
     margin-right: 0.5rem;
     font-size: 2rem;
 }
 
 .listitem__amount {
+
     font-size: 2rem;
     margin-left: 0.7rem;
 }
 
+.buttons{
+    display: flex;
+    justify-content: center;
+}
+
 .listbtn__decrease,
 .listbtn__add,.listbtn__erase {
-    margin: 0 0.1rem 0 4rem;
-    padding: 0 0.7rem;
     font-size: 2rem;
     border: none;
     background-color: blue;
     border: 1px solid blue;
+    width: 45px;
     color: whitesmoke;
     border-radius: 0.25rem;
 }
 
-
 .listbtn__decrease {
-    margin: 0 0.1rem;
-    padding: 0 0.9rem;
+    padding-bottom: 5px;
+    margin: 2px;
+}
+.listbtn__add{
+    padding-top: 4px;
+    margin: 2px;
+}
+.listbtn__add:focus,.listbtn__decrease:focus{
+    border: 1px solid blue;
+    color: blue;
+    background-color: white;
 }
 
 .texto::first-letter {
@@ -121,14 +144,22 @@ body {
     color: red;
     background-color: greenyellow;
 }
+.listitem__amount{
+    margin-right: 10px;
+}
 .listbtn__erase{
     background-color: rgb(219, 73, 73);
     color: white;
-    padding: 20px;
-    padding-top:2px ;
-    padding-bottom:5px ;
+    width: 45px;
+    padding-top: 0;
+    padding-bottom: 5px;
 }
 .listbtn__erase:hover{
     outline: 2px solid black;
     background-color: red;
 }
+
+.listitem__price{
+    padding-top: 11px;
+}
+
