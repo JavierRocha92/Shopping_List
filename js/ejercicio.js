@@ -11,12 +11,12 @@ const list = document.getElementById('list')
 const createElement =(name) =>{
     let price = Math.floor(Math.random() * 11)
     list.innerHTML += '<li class="listitem">'+
-    '<span class="listitem__name" data="'+price+'">'+name+'</span>'+
+    '<span class="listitem__name" id="'+price+'">'+name+'</span>'+
     '<span class="listitem__price">'+price+'.00 €</span>'+
     '<button class="listbtn__add">+ </button>'+
     '<button class="listbtn__decrease"> - </button>'+
     '<span class="listitem__amount">1</span>'+
-    '<span class="listitem__erase">x</span>'+
+    '<span class="listbtn__erase">x</span>'+
     '</li>'
 }
 
@@ -52,21 +52,43 @@ const amountPurchase = () =>{
     list.innerHTML = '<h2>El total de la compra es '+total+',00 €</h2>'
 }
 
+
+
 /* FUNCION PARA MODIFICAR UN ELEMENTO DE UN PRODUCTO */
 
 const modifyProduct = (event) =>{
     const e = event.target
     //GUARDAMOS EN UN ARRAY LOS ELEMENTOS HIJOS DE EL ELEMENTO CAPTURADO EN ESTE CASO EL <li>
     const listElement = e.parentNode.childNodes
-    if (e.className === 'listbtn__add'){
-        listElement[4].textContent = parseInt(listElement[4].textContent) + 1
-    }else if(e.className === 'listbtn__decrease'){
-        if(listElement[4].textContent != 1)
-        listElement[4].textContent = parseInt(listElement[4].textContent) - 1
+    //FILTRAMOS DEL BOTON QUE SE HA PULSADO MEDIANTE SU CLASE
+    switch(e.className){
+        case 'listbtn__add':
+            //CON ESTE BOTON AÑADIMOS UNIDADES 
+            listElement[4].textContent = parseInt(listElement[4].textContent) + 1
+            //GUARDAMOS EL PRECIO NUEVO RESPECTO A LAS UNIDADES QUE TIENE EL ARTICULO EN LA LIST
+            parent[1].textContent = (parseInt(parent[4].textContent) * parseInt(parent[0].id)) + '.00 €'
+            break;
+        case 'listbtn__decrease':
+            //CON ESTE BOTON RESTAMOS UNIDADES Y COMPROBAMOS SI LAS UNIDADES SON UNO PARA NO LLEGAR A 0 EN LA INTERFAZ
+            if(listElement[4].textContent != 1)
+                listElement[4].textContent = parseInt(listElement[4].textContent) - 1
+                ///GUARDAMOS EL PRECIO NUEVO RESPECTO A LAS UNIDADES QUE TIENE EL ARTICULO EN LA LIST
+                parent[1].textContent = (parseInt(parent[4].textContent) * parseInt(parent[0].id)) + '.00 €'                
+            break;
+        case 'listbtn__erase':
+            //CON ESTE BOTON BORRAMOS EL ELEMENTO DE LA LISTA HACIENDO REFENCIA AL PADRE QUE ES EL <li>
+            e.parentNode.remove()
+            break;
     }
-    console.log(listElement[0].dataset)
-    listElement[1].textContent = (parseInt(listElement[4].textContent) * parseInt(listElement[0].data)) + '.00 €'
-    /* EL ELEMENTO DATA NO SE PUEDE ACCEDER A EL HAY QUW ARREGLARLO PARA PODER REALIZAR LA OPERACION */
+    
+
+    /* COGEMOS LA INFORMACION DEL PRECIO DEL PRODUCTO GUATDANDOLO EN UN ID. HABRIA QUE BUSCA OTRA FORMA MSD CORRECTA DE GUARDARLO */
+}
+
+//FUNCION PARA CAMBIAR LA CLASE A LOS BOTONES DE SUMAR Y RESTAR CUANDO EL CLICK SE ACABA
+
+const changeFocus = () => {
+
 }
 
 /* LISTA DE EVENTOS */
