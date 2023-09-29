@@ -1,0 +1,128 @@
+@font-face {
+    font-family: opensans;
+    src: url("../fuentes/OpenSansCondensed-Light.ttf")
+}
+
+@font-face {
+    font-family: yanone;
+    src: url("../fuentes/YanoneKaffeesatz-ExtraLight.ttf")
+}
+
+body {
+    max-width: 1000px;
+    margin: 0 auto;
+    border: 0.01rem solid rgb(218, 216, 216);
+    padding: 40px;
+}
+
+.header__title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    text-align: center;
+    font-size: 5rem;
+    border-bottom: 0.01rem solid rgb(218, 216, 216);
+    color: gray;
+    padding-bottom: 4rem;
+}
+
+.main {
+    text-align: center;
+}
+
+.form__nuevoalimento {
+    width: 275px;
+    height: 45px;
+    border: 1px solid rgb(218, 216, 216);
+    border-radius: 0.3rem;
+    font-size: 1.3rem;
+    letter-spacing: 0.09rem;
+    padding-left: 1.2rem;
+    margin-right: 5rem;
+}
+
+.button {
+    width: 220px;
+    height: 50px;
+    border: 1px solid rgb(218, 216, 216);
+    border-radius: 0.3rem;
+    font-size: 1.3rem;
+    letter-spacing: 0.09rem;
+    padding: 0.5rem;
+    margin-right: 5rem;
+    color: white
+}
+
+.form__btnaniadir {
+    background-color: #50b1c2;
+}
+
+.form__btncomprar {
+    background-color: #73AAFF;
+}
+
+
+/* LISTA */
+
+.list {
+    max-width: 450px;
+    margin: 4em auto;
+    font-family: opensans;
+    font-weight: bold;
+    color: rgb(73, 75, 207);
+}
+
+.listitem {
+    border-radius: 0.4rem;
+    margin-bottom: 0.25rem;
+    list-style-type: none;
+    border: 1px solid rgb(218, 216, 216);
+    padding: 1rem;
+    text-align: left;
+    font-size: 1.3rem;
+    font-variant: small-caps;
+    text-align: center;
+}
+
+.listitem__name {
+    margin-right: 0.5rem;
+    font-size: 2rem;
+}
+
+.listitem__amount {
+    font-size: 2rem;
+    margin-left: 0.7rem;
+}
+
+.listbtn__decrease,
+.listbtn__add,.listitem__erase {
+    margin: 0 0.1rem 0 4rem;
+    padding: 0 0.7rem;
+    font-size: 2rem;
+    border: none;
+    background-color: blue;
+    color: whitesmoke;
+    border-radius: 0.25rem;
+}
+
+.listbtn__decrease {
+    margin: 0 0.1rem;
+    padding: 0 0.9rem;
+}
+
+.texto::first-letter {
+    color: red;
+    font-size: 2.5rem;
+    margin: 0 1rem;
+}
+
+.texto::selection {
+    color: red;
+    background-color: greenyellow;
+}
+.listitem__erase{
+    background-color: red;
+    color: white;
+    padding: 20px;
+    padding-top:2px ;
+    padding-bottom:5px ;
+}
