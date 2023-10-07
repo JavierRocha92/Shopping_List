@@ -1,4 +1,4 @@
-/* CAPTURAR LOS ELEMENTOS NECESARIOS */
+/* CATCHING ELEMENTS*/
 const btncomprar = document.getElementById('btncomprar')
 const btnaniadir = document.getElementById('btnaniadir')
 const nuevoalimento = document.getElementById('nuevoalimento')
@@ -8,10 +8,16 @@ const errorrepeat = document.getElementById('error--repeat')
 const list = document.getElementById('list')
 
 
-/* FUNCIONES NECESARIAS */
+/* FUNCTIONS*/
 
-/* FUNCION PARA DETERMINAR QUE BOTON SE HA PULSADO  */
-const createElement =(text) =>{
+/**
+ * function to create new item list element and save diferent values into diferents elements
+ * 
+ * @param {string} text input value by tiping user
+ * @returns the newly created element
+ */
+const createElement = (text) => {
+    /* storage a random number into a varibale */
     let priceUd = Math.floor(Math.random() * 11)
     /* CREATE LI ELEMENT */
     const itemList = document.createElement('LI')
@@ -19,10 +25,12 @@ const createElement =(text) =>{
     /* CREATE LIST ITEM NAME */
     const name = document.createElement('SPAN')
     name.classList.add('listitem__name')
-    name.textContent= text
+    /* SET ITS VALAUE BY TAKING PARAMETER GIVEN */
+    name.textContent = text
     /* CREATE LIST ITEM PRICE */
     const price = document.createElement('SPAN')
     price.classList.add('listitem__price')
+    /* SET VARIABLE PRIEUD VALUE INTO TEXCONTENT AN ID PRICE */
     price.textContent = priceUd + '.00 €'
     price.id = priceUd
     /* CREATE LIST ITEM BUTTONS */
@@ -39,7 +47,7 @@ const createElement =(text) =>{
     /*ADDING BUTTONS INTO BUTTONS DIV  */
     buttons.appendChild(buttonAdd)
     buttons.appendChild(buttonDec)
-    
+
     /* CREATE LIST ITEM BUTTON */
     const itemAmount = document.createElement('SPAN')
     itemAmount.classList.add('listitem__amount')
@@ -56,11 +64,11 @@ const createElement =(text) =>{
     itemList.appendChild(itemAmount)
     itemList.appendChild(buttonErase)
 
-    /* INSERT LIST ITEM INTO LIST */
+    /* RETURN NEWLY CREATED ELEMENT */
 
-    list.appendChild(itemList)
+    return itemList
 
-    
+
     // '<li class="listitem">'+
     // '<span class="listitem__name" id="'+price+'">'+name+'</span>'+
     // '<span class="listitem__price">'+price+'.00 €</span>'+
@@ -75,33 +83,29 @@ const createElement =(text) =>{
 /**
  * function to set textcontent to totalPrice element to shoe total rice from the list
  * 
- * @param {*} total 
+ * @param {parseFloat} total toatal amount from all item list
  */
 const showTotal = (total) => {
-    totalPrice.textContent = 'El total de la compra es '+total+',00 €'
+    totalPrice.textContent = 'El total de la compra es ' + total + ',00 €'
 }
 
-/* FUNCION PARA BORRAR UN ELEMENTO */
 
-const removeElement = ()=>{
-    let items = list.querySelectorAll('.listitem')
-    items.forEach(item => {
-        console.log(item)
-    });
-}
+/**
+ * function to insert into list dom element the item given as parameter and set input valur to ''
+ * 
+ * @param {HTMLLIElement} item 
+ */
 
-/* FUNCION PARA AÑADIR UN ALIMENTO */
-
-const  addItem = ()=>{
-    createElement(nuevoalimento.value)
+const addItem = (item) => {
+    list.appendChild(item)
     nuevoalimento.value = ''
 }
 
 /**
- * function to calculate total proce from the list items 
+ * function to calculate total price from the list items 
  */
 
-const amountPurchase = () =>{
+const amountPurchase = () => {
     let total = 0
     let items = list.querySelectorAll('.listitem')
     items.forEach(item => {
@@ -115,74 +119,96 @@ const amountPurchase = () =>{
 
     /* calling function to show total price  */
     showTotal(total)
-    
+
 }
 
+/**
+ * functionn to increase by one uds of an item
+ * 
+ * @param {HTMLAllCollection} list 
+ */
 const addUds = (list) => {
 
     list[3].textContent = parseInt(list[3].textContent) + 1
 }
-
+/**
+ * functionn to decrease by one uds of an item
+ * 
+ * @param {HTMLAllCollection} list 
+ */
 const decreaseUds = (list) => {
 
     list[3].textContent = parseInt(list[3].textContent) - 1
 }
+/**
+ * function to modify amount price of an item list depending of its price and its uds
+ * 
+ * @param {HTMLAllCollection} itemList 
+ */
+const updatePrice = (itemList) => {
+    console.log(itemList)
+    itemList[1].textContent = (parseInt(itemList[3].textContent) * parseInt(itemList[1].id)) + '.00 €'
+}
 
 
 
-/* FUNCION PARA MODIFICAR UN ELEMENTO DE UN PRODUCTO */
+/**
+ * function to modify diferents values of item list depending which button is on clikc
+ * 
+ * @param {event} event click event
+ */
 
-const modifyProduct = (event) =>{
+const modifyProduct = (event) => {
+    /* storage all event.target in a short name variable */
     const e = event.target
-    //GUARDAMOS EN UN ARRAY LOS ELEMENTOS HIJOS DE EL ELEMENTO CAPTURADO EN ESTE CASO EL <li>
+    /* storage all children element from de ('LI') in a short name variable */
     const listElement = e.parentElement.parentElement.children
     /* first take conditional to filter button pushed */
-    switch(e.className){
+    switch (e.className) {
         case 'listbtn__add':
             /* calling function to add uds  */
             addUds(listElement)
-            //GUARDAMOS EL PRECIO NUEVO RESPECTO A LAS UNIDADES QUE TIENE EL ARTICULO EN LA LIST
-            listElement[1].textContent = (parseInt(listElement[3].textContent) * parseInt(listElement[0].id)) + '.00 €'
             e.focus()
             break;
-            case 'listbtn__decrease':
-                //CON ESTE BOTON RESTAMOS UNIDADES Y COMPROBAMOS SI LAS UNIDADES SON UNO PARA NO LLEGAR A 0 EN LA INTERFAZ
-                if(listElement[3].textContent != 1){
-                    /* calling function to decrease uds */
-                    decreaseUds(listElement)
-                    
-                    ///GUARDAMOS EL PRECIO NUEVO RESPECTO A LAS UNIDADES QUE TIENE EL ARTICULO EN LA LIST
-                    listElement[1].textContent = (parseInt(listElement[3].textContent) * parseInt(listElement[0].id)) + '.00 €'                
-                    e.focus()
-                }
+        case 'listbtn__decrease':
+            /* conditinal to filter is amount of element in a itemlidt is more than 1 to let keep decreasing instead */
+            if (listElement[3].textContent != 1) {
+                /* calling function to decrease uds */
+                decreaseUds(listElement)
+                e.focus()
+            }
             break;
         case 'listbtn__erase':
-            //CON ESTE BOTON BORRAMOS EL ELEMENTO DE LA LISTA HACIENDO REFENCIA AL PADRE QUE ES EL <li>
+            /* by clicking this button remove parent element (itemList) ('LI') */
             e.parentNode.remove()
             break;
-        }
-        e.addEventListener('mouseup',()=>{
-            e.blur()
+    }
+    /* calling function to update amount price  */
+    updatePrice(listElement)
+    e.addEventListener('mouseup', () => {
+        e.blur()
     })
-    
-
-    /* COGEMOS LA INFORMACION DEL PRECIO DEL PRODUCTO GUATDANDOLO EN UN ID. HABRIA QUE BUSCA OTRA FORMA MSD CORRECTA DE GUARDARLO */
 }
 
 /**
  * FUNCTION TO CHECK IS A VALUE FROM INPUT IS OR NOT EMPTY 
  * 
- * @param {*} input 
+ * @param {HTMLInputElement} input 
  * @returns boolean type 
  */
 const isEmpty = (input) => {
     return input.value == ''
 }
 
-
-const isRepeat = (input) =>{
+/**
+ * function to check if an element number is already in the list and return true or false
+ * 
+ * @param {HTMLInputElement} input input element from DOM
+ * @returns true if an item exist with the same name, false if no item found wuth the same name
+ */
+const isRepeat = (input) => {
     for (const element of list.children) {
-        if(element.children[0].textContent.toLowerCase() == input.value.toLowerCase()){
+        if (element.children[0].textContent.toLowerCase() == input.value.toLowerCase()) {
             return true
         }
     }
@@ -193,33 +219,39 @@ const isRepeat = (input) =>{
  * function to check diferents filter on input values and repeat product on the list 
  * and then insert a new porudct on the list
  * 
- * @param {*} event 
+ * @param {event} event 
  */
 
 const clickOnAniadir = (event) => {
-    /* FUNCTION TO CHECK INPUT HAS SOME WRITEN */
-    if(!isEmpty(nuevoalimento)){
-        errorempty.style.display = 'none'
-        /* FUNCTION TO CHECK PRIDUCT IS ALREADY ON LIST */
-        if(!isRepeat(nuevoalimento)){
-            errorrepeat.style.display = 'none'
-            /* FUNCTION TO CREATE AN ITEM LIST */
-            createElement(nuevoalimento.value)
-            /* REMOVE INPUT VALUE */
-            nuevoalimento.value = ''
-            nuevoalimento.focus()
-        }else{
-            console.log('son ufales')
-            errorrepeat.style.display = 'block'
+    e = event.target
+    if(event.keyCode == '13' || e.id == 'btnaniadir'){
+        totalPrice.textContent = ''
+        /* FUNCTION TO CHECK INPUT HAS SOME WRITEN */
+        if (!isEmpty(nuevoalimento)) {
+            errorempty.style.display = 'none'
+            /* FUNCTION TO CHECK PRIDUCT IS ALREADY ON LIST */
+            if (!isRepeat(nuevoalimento)) {
+                errorrepeat.style.display = 'none'
+                /* FUNCTION TO ADD AN ITEM LIST INTO LIST */
+                addItem(createElement(nuevoalimento.value))
+                /* REMOVE INPUT VALUE */
+                nuevoalimento.value = ''
+                nuevoalimento.focus()
+            } else {
+                console.log('son ufales')
+                errorrepeat.style.display = 'block'
+            }
+        } else {
+            errorempty.style.display = 'block'
         }
-    }else{
-        errorempty.style.display = 'block'
     }
 }
 
+// const showThings = (event) => {
+//     console.log(event)
+// }
 /* EVENTS LIST */
-
-// btnaniadir.addEventListener('click',addItem)
-btncomprar.addEventListener('click',amountPurchase)
-btnaniadir.addEventListener('click',clickOnAniadir)
-list.addEventListener('click',modifyProduct)
+btncomprar.addEventListener('click', amountPurchase)
+document.addEventListener('keypress', clickOnAniadir)
+list.addEventListener('mousedown', modifyProduct)
+document.addEventListener('keypress',clickOnAniadir)
